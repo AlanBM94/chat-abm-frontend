@@ -44,8 +44,8 @@ jobs:
         run: npm run build
       - uses: actions/upload-artifact@v2
         with:
-          name: .next
-          path: .next
+          name: out
+          path: out
   test:
     needs: [lint, build]
     runs-on: ubuntu-latest
@@ -60,8 +60,8 @@ jobs:
         run: npm install
       - uses: actions/download-artifact@v2
         with:
-          name: .next
-          path: .next
+          name: out
+          path: out
       - name: Tests
         run: npm run test
 
@@ -75,11 +75,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: .next
-          path: .next
+          name: out
+          path: out
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .next
+          publish_dir: out
